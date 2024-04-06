@@ -1,0 +1,42 @@
+.background {
+  background-color: #f6f6f6;
+  height: 100lvh;
+}
+
+.root {
+  max-width: 1220px;
+  padding: 24px 40px;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  display: flex;
+  max-width: 604px;
+  justify-content: space-between;
+  align-items: start;
+  padding-bottom: 16px;
+}
+
+.content {
+  display: flex;
+  gap: 64px;
+}
+
+.sider {
+  width: 200px;
+  background-color: blueviolet;
+}
+
+.movies {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.pagination {
+  align-self: center;
+}
