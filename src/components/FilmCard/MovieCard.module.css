@@ -5,8 +5,10 @@
 .wrapper {
   display: flex;
   max-width: 880px;
+  height: 120px;
   border-radius: 8px;
   background-color: white;
+  overflow: hidden;
 }
 
 .description {
@@ -20,7 +22,9 @@
 .img {
   max-width: 80px;
   width: 100%;
-  max-height: 130px;
+  max-height: 120px;
+  background-position: 50% 50%;
+  background-size: cover;
 }
 
 .text {
