@@ -1,42 +1,47 @@
 .background {
   background-color: #f6f6f6;
-  height: 100%;
 }
 
 .root {
   max-width: 1220px;
   padding: 24px 40px;
+  margin: 0 auto;
+  height: 100vh;
 }
 
 .wrapper {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  height: 100%;
 }
-.title {
+
+.header {
   display: flex;
-  max-width: 604px;
-  justify-content: space-between;
-  align-items: start;
+  gap: 184px;
   padding-bottom: 16px;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
 }
 
 .content {
   display: flex;
   gap: 64px;
-}
-
-.sider {
-  width: 200px;
-  background-color: blueviolet;
+  padding: 24px 0;
+  flex: 1;
+  overflow: auto;
 }
 
 .movies {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
   width: 100%;
 }
 
 .pagination {
-  align-self: center;
+  border-top: 1px solid rgba(5, 5, 5, 0.06);
+  width: 100%;
+  padding-top: 16px;
+  display: flex;
+  justify-content: center;
 }

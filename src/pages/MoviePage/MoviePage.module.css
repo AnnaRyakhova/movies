@@ -1,0 +1,56 @@
+.background {
+  background-color: #f6f6f6;
+}
+.root {
+  max-width: 1220px;
+  padding: 24px 40px;
+  margin: 0 auto;
+  height: 100vh;
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  gap: 184px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+}
+
+.content {
+  display: flex;
+  gap: 16px;
+  padding: 24px 0;
+}
+
+.info {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: white;
+  max-width: 640px;
+  width: 100%;
+  padding: 16px 20px 24px;
+  border-radius: 8px;
+  height: max-content;
+}
+
+.poster {
+  max-width: 288px;
+  width: 100%;
+  height: 432px;
+  background-color: blueviolet;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+}
+.rating {
+  white-space: nowrap;
+}

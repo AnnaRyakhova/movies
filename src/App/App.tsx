@@ -1,14 +1,15 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
+import { MoviesListPage } from 'src/pages/MoviesListPage/MoviesListPage'
+import { MoviePage } from 'src/pages/MoviePage/MoviePage'
+
 import './App.css'
-import { MainPage } from '../pages/Main/MainPage'
-import { MoviePage } from '../pages/Movie/MoviePage'
 
 export const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<MainPage />} />
+        <Route path="/" element={<MoviesListPage />} />
         <Route path="movie/:id" element={<MoviePage />} />
       </Routes>
     </BrowserRouter>

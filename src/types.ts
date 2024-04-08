@@ -8,12 +8,30 @@ interface Poster {
 }
 
 export interface Movie {
-  name: string
   alternativeName: string
-  year: string
-  movieLength: string
-  genres: { name: string }[]
   countries: { name: string }[]
+  genres: { name: string }[]
+  id: string
+  movieLength: string
+  name: string
   poster: Poster
   rating: Rating
+  year: string
+}
+
+export enum Filter {
+  Country = 'country',
+  Year = 'year',
+  AgeRating = 'ageRating',
+}
+
+export interface FilterOption {
+  label: string
+  value: string | null
+}
+
+export interface Filters {
+  country: string
+  year: string
+  ageRating: string
 }
