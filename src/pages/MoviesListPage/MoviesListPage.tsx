@@ -1,5 +1,4 @@
 import { Typography, Pagination, Spin, Drawer } from 'antd'
-// import { MenuFoldOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 
 import { Movie } from 'src/types'
@@ -9,6 +8,7 @@ import { Filters } from 'src/components/Filters/Filters'
 
 import styles from './MoviesListPage.module.css'
 import { useFilterParams } from 'src/utils/useFilterParams'
+import { Header } from 'src/components/Header/Header'
 
 const { Text } = Typography
 
@@ -55,11 +55,7 @@ export const MoviesListPage = () => {
     <div className={styles.background}>
       <div className={styles.root}>
         <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
-            <Text strong>Все фильмы и сериалы</Text>
-            {/* <MenuFoldOutlined className={styles.mobileMenuIcon} /> */}
-          </div>
+          <Header />
 
           <div className={styles.content}>
             <Filters setFilterParams={setFilterParams} />

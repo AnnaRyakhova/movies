@@ -1,0 +1,16 @@
+.header {
+  display: flex;
+  gap: 184px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+}
+
+.mobileMenuIcon {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .mobileMenuIcon {
+    display: block;
+  }
+}
