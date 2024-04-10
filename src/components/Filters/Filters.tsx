@@ -1,9 +1,8 @@
 import { Input, Select, Typography } from 'antd'
-import type { SearchProps } from 'antd/es/input/Search'
-import { FC, useEffect, useState } from 'react'
+import { FC, useState } from 'react'
 
 import styles from './Filters.module.css'
-import { Filter } from 'src/types'
+import { Filter, Movie } from 'src/types'
 import { getYearsOptions } from 'src/utils/getYearsOptions'
 import { useFilterParams } from 'src/utils/useFilterParams'
 import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
@@ -15,9 +14,10 @@ const { Text } = Typography
 
 interface FiltersProps {
   setFilterParams: (filter: Filter, value: string | null) => void
+  setMovies: (movies: Movie[]) => void
 }
 
-export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
+export const Filters: FC<FiltersProps> = ({ setFilterParams, setMovies }) => {
   const [search, setSearch] = useState('')
 
   const { filterParams } = useFilterParams()
@@ -32,19 +32,18 @@ export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
 
   const handleSearch = (e: any) => {
     setSearch(e.target.value)
-  }
-
-  useEffect(() => {
     const fetchMovies = async () => {
       try {
         const response = await getMoviesByName(search)
+        setMovies(response)
         console.log(search, response)
       } catch (error) {
-        console.log(error?.message)
+        console.log(error)
       }
     }
     fetchMovies()
-  }, [search])
+  }
+
   return (
     <div className={styles.sider}>
       <div className={styles.searchWrapper}>

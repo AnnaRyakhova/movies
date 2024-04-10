@@ -1,4 +1,4 @@
-import { Typography, Pagination, Spin, Drawer } from 'antd'
+import { Pagination, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
 import { Movie } from 'src/types'
@@ -9,8 +9,6 @@ import { Filters } from 'src/components/Filters/Filters'
 import styles from './MoviesListPage.module.css'
 import { useFilterParams } from 'src/utils/useFilterParams'
 import { Header } from 'src/components/Header/Header'
-
-const { Text } = Typography
 
 export const MoviesListPage = () => {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -55,10 +53,10 @@ export const MoviesListPage = () => {
     <div className={styles.background}>
       <div className={styles.root}>
         <div className={styles.wrapper}>
-          <Header />
+          <Header setMovies={setMovies} />
 
           <div className={styles.content}>
-            <Filters setFilterParams={setFilterParams} />
+            <Filters setFilterParams={setFilterParams} setMovies={setMovies} />
 
             <div className={styles.movies}>{renderMovies()}</div>
           </div>
