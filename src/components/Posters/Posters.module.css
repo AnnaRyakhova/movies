@@ -1,0 +1,12 @@
+.posters {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  background-color: olive;
+}
+
+.poster {
+  width: 214px;
+  height: 225px;
+  background-color: olive;
+}

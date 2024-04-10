@@ -28,29 +28,9 @@
   padding: 24px 0;
 }
 
-.info {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  background-color: white;
-  max-width: 640px;
+.container {
   width: 100%;
-  padding: 16px 20px 24px;
-  border-radius: 8px;
-  height: max-content;
-}
-
-.poster {
-  max-width: 288px;
-  width: 100%;
-  height: 432px;
-  background-color: blueviolet;
-}
-
-.about {
   display: flex;
   flex-direction: column;
-}
-.rating {
-  white-space: nowrap;
+  gap: 24px;
 }

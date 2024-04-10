@@ -1,48 +1,89 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { Typography, Pagination, Spin, Button } from 'antd'
+import { Typography, Pagination, Spin, Button, Carousel } from 'antd'
 
 import styles from './MoviePage.module.css'
 import { getMovie } from 'src/api'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Posters } from 'src/components/Posters/Posters'
+import { Person, Movie, Season, Review } from 'src/types'
+import { Reviews } from 'src/components/Reviews/Reviews'
+import { AdditionalInfo } from 'src/components/AdditionalInfo/AdditionalInfo'
+import { getSeasons } from 'src/api/getSeasons'
+import { getReviews } from 'src/api/getReviews'
+import { getPosters } from 'src/api/getPosters'
+import { MainPoster } from 'src/components/MainPoster/MainPoster'
+import { MovieInfo } from 'src/components/MovieInfo/MovieInfo'
+
+const { Text, Title } = Typography
 
 export const MoviePage = () => {
-  const { id } = useParams()
+  const params = useParams()
+  const id = params?.id
   const navigate = useNavigate()
-  const { Text, Title, Paragraph } = Typography
+  const [movie, setMovie] = useState<Movie>()
+  const [seasons, setSeasons] = useState([])
+  const [reviews, setReviews] = useState(Array<Review>)
 
   useEffect(() => {
     if (!id) {
       navigate('/')
     } else {
       const fetchMovie = async () => {
-        const response = await getMovie(id)
-        console.log(response)
+        try {
+          const movies = await getMovie(id)
+          // const reviews = await getReviews(id)
+          // const posters = await getPosters(id)
+          // console.log(posters)
+          // setReviews(reviews)
+          setMovie(movies)
+        } catch {
+          console.log(movie)
+        }
       }
       fetchMovie()
     }
-  })
+  }, [id, navigate])
+
+  useEffect(() => {
+    if (id) {
+      try {
+        // const fetchSeasons = async () => {
+        //   const response = await getSeasons(id)
+        //   const seasons = response.filter((season: Season) => season.number !== 0)
+        //   setSeasons(seasons)
+        // }
+        // fetchSeasons()
+      } catch {
+        console.log('error')
+      }
+    }
+  }, [id])
+
+  const handleReturn = () => navigate('/')
+
+  const actors = movie?.persons.filter((person) => (person.profession = 'актеры')) as Person[]
+
   return (
     <div className={styles.background}>
       <div className={styles.root}>
         <div className={styles.wrapper}>
           <div className={styles.header}>
             <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
-            <Button>Назад</Button>
+            <Button onClick={handleReturn}>Назад</Button>
           </div>
 
           <div className={styles.content}>
-            <div className={styles.poster}>jfjf</div>
-            <div className={styles.info}>
-              <div className={styles.about}>
-                <Title level={2} className={styles.title}>
-                  Название
-                </Title>
-                <Text type="secondary">Jgbejhgjkweh ekjwrghkrjeqbg ejhgerjkgbrek</Text>
-              </div>
-              <Title level={2} className={styles.rating}>
-                9.0
-              </Title>
+            <MainPoster image={movie?.poster.previewUrl} />
+
+            <div className={styles.container}>
+              <MovieInfo movie={movie} />
+
+              <Posters />
+
+              <Reviews reviews={reviews} />
             </div>
+
+            <AdditionalInfo actors={actors} seasons={seasons} />
           </div>
         </div>
       </div>

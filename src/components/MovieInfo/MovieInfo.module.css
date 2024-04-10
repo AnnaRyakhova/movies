@@ -1,0 +1,18 @@
+.movieInfo {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  background-color: white;
+  width: 100%;
+  padding: 16px 20px 24px;
+  border-radius: 8px;
+  height: max-content;
+}
+
+.about {
+  display: flex;
+  flex-direction: column;
+}
+.rating {
+  white-space: nowrap;
+}

@@ -1,14 +1,14 @@
 import { Input, Select, Typography } from 'antd'
+import type { SearchProps } from 'antd/es/input/Search'
+import { FC, useEffect, useState } from 'react'
 
 import styles from './Filters.module.css'
-import { Filter, FilterOption } from 'src/types'
-import { FC, useEffect, useState } from 'react'
+import { Filter } from 'src/types'
 import { getYearsOptions } from 'src/utils/getYearsOptions'
-import { ageRatings } from './constants'
 import { useFilterParams } from 'src/utils/useFilterParams'
-import { getCountryOptions } from 'src/utils/getCountryOptions'
 import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
 import { useCountryOptions } from 'src/utils/useCountryOptions'
+import { getMoviesByName } from 'src/api/getMoviesByName'
 
 const { Search } = Input
 const { Text } = Typography
@@ -18,10 +18,11 @@ interface FiltersProps {
 }
 
 export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
+  const [search, setSearch] = useState('')
+
   const { filterParams } = useFilterParams()
 
   const { countryOptions } = useCountryOptions()
-
   const yearsOptions = getYearsOptions()
   const ageRatingOptions = getAgeRatingOptions()
 
@@ -29,11 +30,26 @@ export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
     setFilterParams(Filter.Country, value)
   }
 
+  const handleSearch = (e: any) => {
+    setSearch(e.target.value)
+  }
+
+  useEffect(() => {
+    const fetchMovies = async () => {
+      try {
+        const response = await getMoviesByName(search)
+        console.log(search, response)
+      } catch (error) {
+        console.log(error?.message)
+      }
+    }
+    fetchMovies()
+  }, [search])
   return (
     <div className={styles.sider}>
       <div className={styles.searchWrapper}>
         <Text type="secondary">Найти фильм</Text>
-        <Search placeholder="" style={{ width: 200 }} />
+        <Search placeholder="" style={{ width: 200 }} onChange={handleSearch} onPressEnter={handleSearch} />
       </div>
       <div className={styles.filtersWrapper}>
         <Text type="secondary">Фильтры</Text>
