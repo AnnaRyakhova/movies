@@ -29,7 +29,7 @@ export const Header: FC<HeaderProps> = ({ setMovies }) => {
       <Text strong>Все фильмы и сериалы</Text>
       <MenuFoldOutlined className={styles.mobileMenuIcon} onClick={showDrawer} />
       <Drawer title="Меню" onClose={onClose} open={open}>
-        <Filters setFilterParams={setFilterParams} setMovies={setMovies} />
+        <Filters setFilterParams={setFilterParams} setMovies={setMovies} className="mobile" />
       </Drawer>
     </div>
   )

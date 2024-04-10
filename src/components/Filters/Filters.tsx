@@ -1,5 +1,6 @@
 import { Input, Select, Typography } from 'antd'
 import { FC, useState } from 'react'
+import cn from 'classnames'
 
 import styles from './Filters.module.css'
 import { Filter, Movie } from 'src/types'
@@ -15,9 +16,10 @@ const { Text } = Typography
 interface FiltersProps {
   setFilterParams: (filter: Filter, value: string | null) => void
   setMovies: (movies: Movie[]) => void
+  className?: string
 }
 
-export const Filters: FC<FiltersProps> = ({ setFilterParams, setMovies }) => {
+export const Filters: FC<FiltersProps> = ({ setFilterParams, setMovies, className = '' }) => {
   const [search, setSearch] = useState('')
 
   const { filterParams } = useFilterParams()
@@ -45,7 +47,7 @@ export const Filters: FC<FiltersProps> = ({ setFilterParams, setMovies }) => {
   }
 
   return (
-    <div className={styles.sider}>
+    <div className={cn(styles.sider, styles[className])}>
       <div className={styles.searchWrapper}>
         <Text type="secondary">Найти фильм</Text>
         <Search placeholder="" style={{ width: 200 }} onChange={handleSearch} onPressEnter={handleSearch} />
