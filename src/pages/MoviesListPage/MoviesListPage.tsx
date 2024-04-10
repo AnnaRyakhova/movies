@@ -1,4 +1,5 @@
-import { Typography, Pagination, Spin } from 'antd'
+import { Typography, Pagination, Spin, Drawer } from 'antd'
+// import { MenuFoldOutlined } from '@ant-design/icons'
 import { useEffect, useState } from 'react'
 
 import { Movie } from 'src/types'
@@ -23,8 +24,6 @@ export const MoviesListPage = () => {
   }
 
   const { filterParams, setFilterParams } = useFilterParams()
-
-  console.log(filterParams)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -59,6 +58,7 @@ export const MoviesListPage = () => {
           <div className={styles.header}>
             <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
             <Text strong>Все фильмы и сериалы</Text>
+            {/* <MenuFoldOutlined className={styles.mobileMenuIcon} /> */}
           </div>
 
           <div className={styles.content}>

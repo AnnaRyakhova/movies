@@ -12,7 +12,7 @@ export const useFilterParams = () => {
 
   const filterParams = useMemo(() => getSearchParams(searchParams), [searchParams])
 
-  const setFilterParams = (filter: Filter, value: string) => {
+  const setFilterParams = (filter: Filter, value: string | null) => {
     const prevParams = getSearchParams(searchParams)
     if (!value) {
       delete prevParams[filter]

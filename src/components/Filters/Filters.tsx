@@ -1,46 +1,33 @@
-import { Button, Input, Select, Typography } from 'antd'
+import { Input, Select, Typography } from 'antd'
 
 import styles from './Filters.module.css'
 import { Filter, FilterOption } from 'src/types'
 import { FC, useEffect, useState } from 'react'
-import { getPossibleValues } from 'src/api'
-import { getYears } from 'src/utils/utils'
+import { getYearsOptions } from 'src/utils/getYearsOptions'
 import { ageRatings } from './constants'
+import { useFilterParams } from 'src/utils/useFilterParams'
+import { getCountryOptions } from 'src/utils/getCountryOptions'
+import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
+import { useCountryOptions } from 'src/utils/useCountryOptions'
 
 const { Search } = Input
 const { Text } = Typography
 
 interface FiltersProps {
-  setFilterParams: (filter: Filter, value: string) => void
+  setFilterParams: (filter: Filter, value: string | null) => void
 }
 
 export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
-  const [countryOptions, setCountryOptions] = useState<FilterOption[]>([])
+  const { filterParams } = useFilterParams()
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const values = await getPossibleValues('countries.name')
-      const startCountriesOptions = [
-        { label: 'Все страны', value: null },
-        { label: 'Россия', value: 'Россия' },
-        { label: 'СССР', value: 'СССР' },
-        { label: 'США', value: 'США' },
-      ]
-      setCountryOptions([...startCountriesOptions, ...values])
-    }
+  const { countryOptions } = useCountryOptions()
 
-    fetchData()
-  }, [])
+  const yearsOptions = getYearsOptions()
+  const ageRatingOptions = getAgeRatingOptions()
 
-  const years = getYears(2027, 2019, 2020)
-  const yearsOptions = years.map((item) => ({
-    value: item,
-    label: item,
-  }))
-  const ageRatingOptions = ageRatings.map((rating: string) => ({
-    value: rating,
-    label: `${rating}+`,
-  }))
+  const handleCountries = (value: string) => {
+    setFilterParams(Filter.Country, value)
+  }
 
   return (
     <div className={styles.sider}>
@@ -53,18 +40,21 @@ export const Filters: FC<FiltersProps> = ({ setFilterParams }) => {
         <div className={styles.filters}>
           <Select
             placeholder="Все страны"
-            onChange={(value) => setFilterParams(Filter.Country, value)}
+            onChange={handleCountries}
             options={countryOptions}
+            value={filterParams.country}
           />
           <Select
             placeholder="Все годы"
             onChange={(value) => setFilterParams(Filter.Year, value)}
             options={yearsOptions}
+            value={filterParams.year}
           />
           <Select
             placeholder="Для любого возраста"
             onChange={(value) => setFilterParams(Filter.AgeRating, value)}
             options={ageRatingOptions}
+            value={filterParams.ageRating}
           />
         </div>
       </div>
