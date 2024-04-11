@@ -9,12 +9,14 @@ import { Movie } from 'src/types'
 const { Text } = Typography
 
 interface HeaderProps {
+  searchQuery: string
   setMovies: (movies: Movie[]) => void
+  setPage: (page: number) => void
+  setSearchQuery: (query: string) => void
 }
 
-export const Header: FC<HeaderProps> = ({ setMovies }) => {
+export const Header: FC<HeaderProps> = ({ searchQuery, setMovies, setSearchQuery, setPage }) => {
   const [open, setOpen] = useState(false)
-  const { setFilterParams } = useFilterParams()
 
   const showDrawer = () => {
     setOpen(true)
@@ -25,11 +27,19 @@ export const Header: FC<HeaderProps> = ({ setMovies }) => {
 
   return (
     <div className={styles.header}>
-      <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
-      <Text strong>Все фильмы и сериалы</Text>
+      <Text className={styles.title}>Авито.Кино</Text>
+      <Text strong className={styles.sectionName}>
+        Все фильмы и сериалы
+      </Text>
       <MenuFoldOutlined className={styles.mobileMenuIcon} onClick={showDrawer} />
       <Drawer title="Меню" onClose={onClose} open={open}>
-        <Filters setFilterParams={setFilterParams} setMovies={setMovies} className="mobile" />
+        <Filters
+          searchQuery={searchQuery}
+          setMovies={setMovies}
+          setSearchQuery={setSearchQuery}
+          setPage={setPage}
+          mobile
+        />
       </Drawer>
     </div>
   )

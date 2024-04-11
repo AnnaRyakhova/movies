@@ -3,16 +3,26 @@
   flex-direction: column;
   gap: 16px;
 }
+
 .wrapper {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 16px 20px 24px;
+  padding: 16px 20px;
   border-radius: 8px;
-  max-height: 150px;
+  height: max-content;
   background-color: white;
+  overflow: hidden;
 }
 
 .reviewText {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.open {
+  height: auto;
 }

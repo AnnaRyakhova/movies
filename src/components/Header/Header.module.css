@@ -1,8 +1,13 @@
 .header {
   display: flex;
-  gap: 184px;
+  gap: 8px;
   padding-bottom: 16px;
   border-bottom: 1px solid rgba(5, 5, 5, 0.06);
+}
+
+.title {
+  color: '#C5C5C5';
+  width: 200px;
 }
 
 .mobileMenuIcon {
@@ -10,7 +15,19 @@
 }
 
 @media (max-width: 576px) {
+  .header {
+    justify-content: space-between;
+  }
+
   .mobileMenuIcon {
+    display: block;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .sectionName {
     display: block;
   }
 }

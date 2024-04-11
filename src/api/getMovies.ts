@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { Filters, Movie } from 'src/types'
+import axios, { AxiosResponse } from 'axios'
+import { Filters, Movie, ResponseData } from 'src/types'
 import { baseURL, headers } from './constants'
 
 interface Payload {
@@ -8,7 +8,7 @@ interface Payload {
   filters: Filters
 }
 
-export const getMovies = async (payload: Payload): Promise<Movie[]> => {
+export const getMovies = async (payload: Payload) => {
   const { page, pageSize, filters } = payload
   const { country, year, ageRating } = filters
 
@@ -23,5 +23,5 @@ export const getMovies = async (payload: Payload): Promise<Movie[]> => {
     headers,
   })
 
-  return response.data.docs
+  return response.data
 }

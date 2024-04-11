@@ -34,7 +34,7 @@ export interface Movie {
   year: string
   description: string
   shortDescription: string
-  similarMovie: SimilarMovie
+  similarMovies: SimilarMovie[]
   persons: Person[]
   isSeries: boolean
 }
@@ -74,4 +74,9 @@ export interface Review {
   title: string
   review: string
   type: string
+  id: string
+}
+
+export interface ResponseData<T> {
+  docs: T[]
 }

@@ -24,5 +24,9 @@ export const useFilterParams = () => {
     }
   }
 
-  return { searchParams, filterParams, setFilterParams }
+  const resetFilterParams = () => {
+    setSearchParams({})
+  }
+
+  return { filterParams, setFilterParams, resetFilterParams }
 }

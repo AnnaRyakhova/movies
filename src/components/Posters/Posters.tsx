@@ -1,4 +1,4 @@
-import { Carousel } from 'antd'
+// import { Carousel } from 'antd'
 
 import styles from './Posters.module.css'
 

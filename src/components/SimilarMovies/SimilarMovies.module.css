@@ -1,0 +1,12 @@
+.wrapper {
+  width: 100%;
+  /* height: 225px; */
+  background: olive;
+  overflow: hidden !important;
+}
+
+.carousel {
+  /* height: 225px; */
+  /* width: 100%; */
+  overflow: hidden !important;
+}
