@@ -15,3 +15,7 @@
   justify-content: space-between;
   height: 348px;
 }
+
+.seriesWrapper.empty {
+  height: max-content;
+}

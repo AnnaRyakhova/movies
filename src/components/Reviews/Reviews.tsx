@@ -59,23 +59,31 @@ export const Reviews: FC = () => {
 
   const reviewList = getList(page, reviews, pageSize)
 
+  const isEmpty = reviewList.length === 0
+
   return (
-    <div className={styles.container}>
+    <div className={cn(styles.container, { [styles.empty]: isEmpty })}>
       <Typography.Title level={3}>Отзывы</Typography.Title>
-      {reviewList.map((review) => (
-        <ReviewCard review={review} key={review.id} />
-      ))}
-      <Pagination
-        simple
-        defaultCurrent={1}
-        total={reviews.length}
-        onChange={handleReviews}
-        hideOnSinglePage
-        size="small"
-        showSizeChanger={false}
-        style={{ alignSelf: 'center' }}
-        pageSize={pageSize}
-      />
+      {isEmpty ? (
+        <Text type="secondary" className={styles.subtitle}>
+          Пока нет отзывов
+        </Text>
+      ) : (
+        reviewList.map((review) => <ReviewCard review={review} key={review.id} />)
+      )}
+      {!isEmpty && (
+        <Pagination
+          simple
+          defaultCurrent={1}
+          total={reviews.length}
+          onChange={handleReviews}
+          hideOnSinglePage
+          size="small"
+          showSizeChanger={false}
+          style={{ alignSelf: 'center' }}
+          pageSize={pageSize}
+        />
+      )}
     </div>
   )
 }

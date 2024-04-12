@@ -38,7 +38,7 @@ export const MoviePage = () => {
     }
   }, [id, navigate])
 
-  const handleReturn = () => navigate('/')
+  const handleReturn = () => navigate(-1)
 
   const actors = movie?.persons.filter((person) => (person.profession = 'актеры')) as Person[]
 

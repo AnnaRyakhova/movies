@@ -5,10 +5,10 @@ import { Movie } from 'src/types'
 import { getMovies, getMoviesByName } from 'src/api'
 import { MovieCard } from 'src/components/MovieCard/MovieCard'
 import { Filters } from 'src/components/Filters/Filters'
-
-import styles from './MoviesListPage.module.css'
 import { useFilterParams } from 'src/utils/useFilterParams'
 import { Header } from 'src/components/Header/Header'
+
+import styles from './MoviesListPage.module.css'
 
 export const MoviesListPage = () => {
   const [movies, setMovies] = useState<Movie[]>([])
@@ -59,6 +59,8 @@ export const MoviesListPage = () => {
 
     return movies.map((movie) => <MovieCard movie={movie} key={movie.id} />)
   }
+
+  console.log(filterParams)
 
   return (
     <div className={styles.root}>

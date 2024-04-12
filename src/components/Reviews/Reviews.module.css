@@ -26,3 +26,12 @@
 .open {
   height: auto;
 }
+
+.container.empty {
+  gap: 0;
+}
+
+.subtitle {
+  font-size: 18px;
+  padding-bottom: 12px;
+}

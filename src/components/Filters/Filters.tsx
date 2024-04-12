@@ -9,7 +9,6 @@ import { useFilterParams } from 'src/utils/useFilterParams'
 import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
 import { useCountryOptions } from 'src/utils/useCountryOptions'
 import { getMoviesByName } from 'src/api/getMoviesByName'
-import { AxiosError } from 'axios'
 import { pageSizeOptions } from './constants'
 
 const { Search } = Input
@@ -55,7 +54,7 @@ export const Filters: FC<FiltersProps> = ({
         const response = await getMoviesByName(searchQuery)
         setMovies(response.docs)
       } catch (error) {
-        // console.log(error.message)
+        console.log('error')
       }
     }
     fetchMovies()
@@ -78,13 +77,13 @@ export const Filters: FC<FiltersProps> = ({
           />
           <Select
             placeholder="Все годы"
-            onChange={(value) => setFilterParams(Filter.Year, value)}
+            onChange={(value) => handleFilter(Filter.Year, value)}
             options={yearsOptions}
             value={filterParams.year}
           />
           <Select
             placeholder="Для любого возраста"
-            onChange={(value) => setFilterParams(Filter.AgeRating, value)}
+            onChange={(value) => handleFilter(Filter.AgeRating, value)}
             options={ageRatingOptions}
             value={filterParams.ageRating}
           />

@@ -1,5 +1,5 @@
-import axios, { AxiosResponse } from 'axios'
-import { Filters, Movie, ResponseData } from 'src/types'
+import axios from 'axios'
+import { Filters } from 'src/types'
 import { baseURL, headers } from './constants'
 
 interface Payload {

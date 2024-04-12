@@ -16,7 +16,7 @@ export const MovieInfo: FC<Props> = ({ movie }) => {
         <Title level={2} className={styles.title}>
           {movie?.name}
         </Title>
-        <Text type="secondary">{movie?.shortDescription}</Text>
+        <Text type="secondary">{movie?.description}</Text>
       </div>
       <Title level={2} className={styles.rating}>
         {movie?.rating.kp.toFixed(1)}

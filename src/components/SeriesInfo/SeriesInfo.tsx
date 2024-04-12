@@ -1,5 +1,6 @@
 import { Typography, Pagination } from 'antd'
 import { FC, useEffect, useState } from 'react'
+import cn from 'classnames'
 
 import { Episode, Season } from 'src/types'
 import { getSeasons } from 'src/api'
@@ -21,7 +22,7 @@ export const SeriesInfo: FC = () => {
         const fetchSeasons = async () => {
           const seasons = await getSeasons(id)
           const seasonsWithoutSpecials = seasons.filter(({ number }) => number)
-          setSeasons(seasonsWithoutSpecials)
+          setSeasons([...seasonsWithoutSpecials].reverse())
         }
         fetchSeasons()
       } catch {
@@ -46,37 +47,44 @@ export const SeriesInfo: FC = () => {
   const pageSize = 4
 
   const episodeList = getList(seriesPage, episodes, pageSize) as Episode[]
-
   const episodesCount = episodes?.length - 1
 
-  return (
-    <div className={styles.seriesWrapper}>
-      <div>
-        <Title level={4} style={{ margin: '0' }}>
-          Сезоны и серии
-        </Title>
-        <Text type="secondary">Всего сезонов: {seasons.length}</Text>
+  const isEmpty = episodeList.length === 0
 
-        <div className={styles.seriesList}>
-          {episodeList.map((episode, index) => (
-            <Text key={index}>
-              Эпизод {episode.number}, сезон {episode.seasonNumber} {episode.name}
-            </Text>
-          ))}
-        </div>
+  return (
+    <div className={cn(styles.seriesWrapper, { [styles.empty]: isEmpty })}>
+      <div>
+        <Title level={4}>Сезоны и серии</Title>
+        {isEmpty ? (
+          <Text type="secondary">Нет информации об эпизодах</Text>
+        ) : (
+          <>
+            <Text type="secondary">Всего сезонов: {seasons.length}</Text>
+
+            <div className={styles.seriesList}>
+              {episodeList.map((episode, index) => (
+                <Text key={index}>
+                  Эпизод {episode.number}, сезон {episode.seasonNumber} {episode.name}
+                </Text>
+              ))}
+            </div>
+          </>
+        )}
       </div>
 
-      <Pagination
-        simple
-        defaultCurrent={1}
-        total={episodesCount}
-        onChange={handleSeries}
-        hideOnSinglePage
-        size="small"
-        showSizeChanger={false}
-        style={{ alignSelf: 'center' }}
-        pageSize={pageSize}
-      />
+      {episodeList.length > 0 && (
+        <Pagination
+          simple
+          defaultCurrent={1}
+          total={episodesCount}
+          onChange={handleSeries}
+          hideOnSinglePage
+          size="small"
+          showSizeChanger={false}
+          style={{ alignSelf: 'center' }}
+          pageSize={pageSize}
+        />
+      )}
     </div>
   )
 }
