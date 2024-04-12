@@ -33,11 +33,11 @@ export const ActorsInfo: FC<ActorsInfoProps> = ({ actors }) => {
   const actorsCount = actors.length - 1
 
   return (
-    <div className={styles.actors}>
+    <div className={styles.root}>
       <div>
         <Title level={4}>В ролях</Title>
-        <div className={styles.list}>
-          {actorsList?.map((actor, index) => (
+        <div className={styles.actorsList}>
+          {actorsList.map((actor, index) => (
             <Text key={index}>{actor.name}</Text>
           ))}
         </div>

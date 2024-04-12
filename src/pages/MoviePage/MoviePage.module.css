@@ -1,14 +1,12 @@
-.background {
-  background-color: #f6f6f6;
-}
 .root {
-  max-width: 1220px;
-  padding: 24px 40px;
-  margin: 0 auto;
   height: 100vh;
+  background: #f6f6f6;
 }
 
 .wrapper {
+  max-width: 1220px;
+  padding: 24px 40px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -26,6 +24,7 @@
   display: flex;
   gap: 16px;
   padding: 24px 0;
+  overflow: auto;
 }
 
 .mainInfo {
@@ -43,7 +42,7 @@
   width: 100%;
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 1000px) {
   .info {
     flex-direction: column;
   }
@@ -51,5 +50,17 @@
   .additionalInfo {
     flex-direction: row;
     max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .root {
+    padding: 16px 24px;
+  }
+}
+
+@media (max-width: 576px) {
+  .root {
+    padding: 8px;
   }
 }

@@ -47,7 +47,7 @@ export const Reviews: FC = () => {
         const reviews = await getReviews(id)
         setReviews(reviews)
       } catch (error) {
-        console.log(error)
+        // console.log(error)
       }
     }
     if (id) {
@@ -61,6 +61,7 @@ export const Reviews: FC = () => {
 
   return (
     <div className={styles.container}>
+      <Typography.Title level={3}>Отзывы</Typography.Title>
       {reviewList.map((review) => (
         <ReviewCard review={review} key={review.id} />
       ))}

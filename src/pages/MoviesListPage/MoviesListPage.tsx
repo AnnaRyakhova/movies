@@ -33,6 +33,8 @@ export const MoviesListPage = () => {
           setMovies(movies.docs)
           setTotal(movies.total)
         }
+      } catch {
+        console.log('error')
       } finally {
         setLoading(false)
       }
@@ -43,7 +45,7 @@ export const MoviesListPage = () => {
 
   const handlePagination = (page: number, pageSize: number) => {
     setPage(page)
-    setPageSize(pageSize)
+    // setPageSize(pageSize)
   }
 
   const renderMovies = () => {
@@ -59,31 +61,39 @@ export const MoviesListPage = () => {
   }
 
   return (
-    <div className={styles.background}>
-      <div className={styles.root}>
-        <div className={styles.wrapper}>
-          <Header searchQuery={searchQuery} setMovies={setMovies} setSearchQuery={setSearchQuery} setPage={setPage} />
+    <div className={styles.root}>
+      <div className={styles.wrapper}>
+        <Header
+          setPageSize={setPageSize}
+          searchQuery={searchQuery}
+          setMovies={setMovies}
+          setSearchQuery={setSearchQuery}
+          setPage={setPage}
+          pageSize={pageSize}
+        />
 
-          <div className={styles.content}>
-            <Filters
-              searchQuery={searchQuery}
-              setMovies={setMovies}
-              setSearchQuery={setSearchQuery}
-              setPage={setPage}
-            />
-
-            <div className={styles.movies}>{renderMovies()}</div>
-          </div>
-
-          <Pagination
-            current={page}
-            defaultCurrent={1}
-            total={total}
-            className={styles.pagination}
-            onChange={handlePagination}
+        <div className={styles.content}>
+          <Filters
+            searchQuery={searchQuery}
+            setMovies={setMovies}
+            setSearchQuery={setSearchQuery}
+            setPage={setPage}
+            setPageSize={setPageSize}
             pageSize={pageSize}
           />
+
+          <div className={styles.movies}>{renderMovies()}</div>
         </div>
+
+        <Pagination
+          current={page}
+          defaultCurrent={1}
+          total={total}
+          className={styles.pagination}
+          onChange={handlePagination}
+          pageSize={pageSize}
+          showSizeChanger={false}
+        />
       </div>
     </div>
   )

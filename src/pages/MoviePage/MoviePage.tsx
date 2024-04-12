@@ -16,10 +16,11 @@ import { SeriesInfo } from 'src/components/SeriesInfo/SeriesInfo'
 const { Text } = Typography
 
 export const MoviePage = () => {
-  const params = useParams()
-  const id = params?.id
+  const { id } = useParams()
   const navigate = useNavigate()
   const [movie, setMovie] = useState<Movie>()
+
+  console.log(movie)
 
   useEffect(() => {
     if (!id) {
@@ -42,31 +43,29 @@ export const MoviePage = () => {
   const actors = movie?.persons.filter((person) => (person.profession = 'актеры')) as Person[]
 
   return (
-    <div className={styles.background}>
-      <div className={styles.root}>
-        <div className={styles.wrapper}>
-          <div className={styles.header}>
-            <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
-            <Button onClick={handleReturn}>Назад</Button>
+    <div className={styles.root}>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <Text style={{ color: '#C5C5C5' }}>Авито.Кино</Text>
+          <Button onClick={handleReturn}>Назад</Button>
+        </div>
+
+        <div className={styles.info}>
+          <MainPoster image={movie?.poster.previewUrl} />
+
+          <div className={styles.mainInfo}>
+            <MovieInfo movie={movie} />
+
+            <Posters />
+
+            <Reviews />
+
+            <SimilarMovies similarMovies={movie?.similarMovies} />
           </div>
 
-          <div className={styles.info}>
-            <MainPoster image={movie?.poster.previewUrl} />
-
-            <div className={styles.mainInfo}>
-              <MovieInfo movie={movie} />
-
-              <Posters />
-
-              <Reviews />
-
-              {/* <SimilarMovies similarMovies={movie?.similarMovies} /> */}
-            </div>
-
-            <div className={styles.additionalInfo}>
-              <ActorsInfo actors={actors} />
-              {movie?.isSeries ? <SeriesInfo /> : null}
-            </div>
+          <div className={styles.additionalInfo}>
+            <ActorsInfo actors={actors} />
+            {movie?.isSeries ? <SeriesInfo /> : null}
           </div>
         </div>
       </div>

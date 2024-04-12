@@ -36,8 +36,12 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
 
           <div className={styles.description}>
             <div className={styles.text}>
-              <Title level={4}>{name}</Title>
-              <Text type="secondary">{info}</Text>
+              <Title level={4} className={styles.title} style={{ marginBottom: '0' }}>
+                {name}
+              </Title>
+              <Text type="secondary" className={styles.info}>
+                {info}
+              </Text>
             </div>
 
             <Title level={2} className={styles.rating}>

@@ -24,27 +24,26 @@ export const SimilarMovies: FC<Props> = ({ similarMovies }) => {
       return null
     }
 
-    console.log(similarMovies)
+    // console.log(similarMovies)
 
-    return (
-      <Carousel className={styles.carousel}>
-        <div>
-          <h3 style={contentStyle}>1</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>2</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>3</h3>
-        </div>
-        <div>
-          <h3 style={contentStyle}>4</h3>
-        </div>
-      </Carousel>
-    )
+    return null
+    // <Carousel className={styles.carousel}>
+    //   <div>
+    //     <h3 style={contentStyle}>1</h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>2</h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>3</h3>
+    //   </div>
+    //   <div>
+    //     <h3 style={contentStyle}>4</h3>
+    //   </div>
+    // </Carousel>
   }
 
   // return renderSimilarMovies()
 
-  return <div className={styles.wrapper}>{renderSimilarMovies()}</div>
+  return <div className={styles.root}>{renderSimilarMovies()}</div>
 }

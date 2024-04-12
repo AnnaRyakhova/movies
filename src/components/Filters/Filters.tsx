@@ -10,6 +10,7 @@ import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
 import { useCountryOptions } from 'src/utils/useCountryOptions'
 import { getMoviesByName } from 'src/api/getMoviesByName'
 import { AxiosError } from 'axios'
+import { pageSizeOptions } from './constants'
 
 const { Search } = Input
 const { Text } = Typography
@@ -17,12 +18,22 @@ const { Text } = Typography
 interface FiltersProps {
   searchQuery: string
   setMovies: (movies: Movie[]) => void
-  setPage: (prevState: number) => void
-  setSearchQuery: (prevState: string) => void
+  setPage: (page: number) => void
+  setSearchQuery: (query: string) => void
   mobile?: boolean
+  setPageSize: (pageSize: number) => void
+  pageSize: number
 }
 
-export const Filters: FC<FiltersProps> = ({ setMovies, searchQuery, setSearchQuery, setPage, mobile }) => {
+export const Filters: FC<FiltersProps> = ({
+  setPageSize,
+  pageSize,
+  setMovies,
+  searchQuery,
+  setSearchQuery,
+  setPage,
+  mobile = false,
+}) => {
   const { filterParams, setFilterParams, resetFilterParams } = useFilterParams()
 
   const { countryOptions } = useCountryOptions()
@@ -76,6 +87,12 @@ export const Filters: FC<FiltersProps> = ({ setMovies, searchQuery, setSearchQue
             onChange={(value) => setFilterParams(Filter.AgeRating, value)}
             options={ageRatingOptions}
             value={filterParams.ageRating}
+          />
+          <Select
+            placeholder="Размер страницы"
+            onChange={(value) => setPageSize(value)}
+            options={pageSizeOptions}
+            value={pageSize}
           />
         </div>
       </div>

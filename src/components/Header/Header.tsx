@@ -1,10 +1,11 @@
-import styles from './Header.module.css'
 import { Typography, Drawer } from 'antd'
 import { MenuFoldOutlined } from '@ant-design/icons'
 import { FC, useState } from 'react'
+
 import { Filters } from '../Filters/Filters'
-import { useFilterParams } from 'src/utils/useFilterParams'
 import { Movie } from 'src/types'
+
+import styles from './Header.module.css'
 
 const { Text } = Typography
 
@@ -13,9 +14,11 @@ interface HeaderProps {
   setMovies: (movies: Movie[]) => void
   setPage: (page: number) => void
   setSearchQuery: (query: string) => void
+  pageSize: number
+  setPageSize: (pageSize: number) => void
 }
 
-export const Header: FC<HeaderProps> = ({ searchQuery, setMovies, setSearchQuery, setPage }) => {
+export const Header: FC<HeaderProps> = ({ pageSize, setPageSize, searchQuery, setMovies, setSearchQuery, setPage }) => {
   const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
@@ -38,6 +41,8 @@ export const Header: FC<HeaderProps> = ({ searchQuery, setMovies, setSearchQuery
           setMovies={setMovies}
           setSearchQuery={setSearchQuery}
           setPage={setPage}
+          setPageSize={setPageSize}
+          pageSize={pageSize}
           mobile
         />
       </Drawer>
