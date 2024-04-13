@@ -1,13 +1,13 @@
 .posters {
-  border-radius: 8px;
-  overflow: hidden;
-  width: 100%;
-  background-color: olive;
-  height: 320px;
+  /* border-radius: 8px;
+  padding: 8px; */
+  /* overflow: hidden; */
+  /* width: 100%; */
+  /* background-color: #ffffff; */
+  /* height: 320px; */
 }
 
 .poster {
-  width: 214px;
-  height: 225px;
-  background-color: olive;
+  display: flex;
+  align-items: center;
 }

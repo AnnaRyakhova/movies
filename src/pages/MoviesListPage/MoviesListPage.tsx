@@ -36,7 +36,7 @@ export const MoviesListPage = () => {
       } catch {
         console.log('Не удалось загрузить фильмы')
       } finally {
-        setTotal(movies.total)
+        setTotal(movies?.total || null)
         setLoading(false)
       }
     }
@@ -49,12 +49,12 @@ export const MoviesListPage = () => {
   }
 
   const renderMovies = () => {
-    if (!movies.length) {
-      return null
-    }
-
     if (loading) {
       return <Spin />
+    }
+
+    if (!movies.length) {
+      return null
     }
 
     return movies.map((movie) => <MovieCard movie={movie} key={movie.id} />)

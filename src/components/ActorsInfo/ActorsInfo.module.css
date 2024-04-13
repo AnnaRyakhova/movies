@@ -1,13 +1,16 @@
 .root {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   background-color: white;
   border-radius: 8px;
   padding: 16px 20px;
   gap: 12px;
   justify-content: space-between;
-  min-height: 428px;
+  min-height: 436px;
+  width: 100%;
   min-width: 240px;
+  max-width: 320px;
 }
 
 .actorsList {
@@ -19,4 +22,10 @@
 .root.empty {
   height: max-content;
   min-height: min-content;
+}
+
+@media (max-width: 576px) {
+  .root {
+    max-width: 100%;
+  }
 }

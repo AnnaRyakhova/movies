@@ -1,17 +1,15 @@
-import { useNavigate, useParams } from 'react-router-dom'
-import { Typography, Button } from 'antd'
-
-import styles from './MoviePage.module.css'
-import { getMovie } from 'src/api'
 import { useEffect, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Typography, Button, Spin } from 'antd'
+
+import { getMovie } from 'src/api'
 import { Posters } from 'src/components/Posters/Posters'
-import { Person, Movie } from 'src/types'
+import { Movie } from 'src/types'
 import { Reviews } from 'src/components/Reviews/Reviews'
-import { ActorsInfo } from 'src/components/ActorsInfo/ActorsInfo'
-import { MainPoster } from 'src/components/MainPoster/MainPoster'
 import { MovieInfo } from 'src/components/MovieInfo/MovieInfo'
 import { SimilarMovies } from 'src/components/SimilarMovies/SimilarMovies'
-import { SeriesInfo } from 'src/components/SeriesInfo/SeriesInfo'
+
+import styles from './MoviePage.module.css'
 
 const { Text } = Typography
 
@@ -19,8 +17,7 @@ export const MoviePage = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const [movie, setMovie] = useState<Movie>()
-
-  console.log(movie)
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (!id) {
@@ -28,10 +25,13 @@ export const MoviePage = () => {
     } else {
       const fetchMovie = async () => {
         try {
+          setLoading(true)
           const movies = await getMovie(id)
           setMovie(movies)
         } catch {
           console.log('no movie')
+        } finally {
+          setLoading(false)
         }
       }
       fetchMovie()
@@ -40,7 +40,27 @@ export const MoviePage = () => {
 
   const handleReturn = () => navigate(-1)
 
-  const actors = movie?.persons.filter((person) => (person.profession = 'актеры')) as Person[]
+  const renderInfo = () => {
+    if (!movie) {
+      return null
+    }
+
+    if (loading) {
+      return <Spin />
+    }
+
+    return (
+      <div className={styles.movieInfo}>
+        <MovieInfo movie={movie} />
+
+        <Posters />
+
+        <Reviews />
+
+        <SimilarMovies similarMovies={movie?.similarMovies} />
+      </div>
+    )
+  }
 
   return (
     <div className={styles.root}>
@@ -50,24 +70,7 @@ export const MoviePage = () => {
           <Button onClick={handleReturn}>Назад</Button>
         </div>
 
-        <div className={styles.info}>
-          <MainPoster image={movie?.poster.previewUrl} />
-
-          <div className={styles.mainInfo}>
-            <MovieInfo movie={movie} />
-
-            <Posters />
-
-            <Reviews />
-
-            <SimilarMovies similarMovies={movie?.similarMovies} />
-          </div>
-
-          <div className={styles.additionalInfo}>
-            <ActorsInfo actors={actors} />
-            {movie?.isSeries ? <SeriesInfo /> : null}
-          </div>
-        </div>
+        {renderInfo()}
       </div>
     </div>
   )

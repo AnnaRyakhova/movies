@@ -53,6 +53,7 @@ export const ActorsInfo: FC<ActorsInfoProps> = ({ actors }) => {
           size="small"
           style={{ alignSelf: 'center' }}
           pageSize={10}
+          className={styles.pagination}
         />
       )}
     </div>

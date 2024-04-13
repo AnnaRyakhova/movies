@@ -20,8 +20,6 @@ export const useFilterParams = () => {
     return { ...defaultSerchParams, ...prevParams }
   }, [searchParams])
 
-  // console.log('filterParams', filterParams)
-
   const setFilterParams = (filter: Filter, value: string | null) => {
     const prevParams = getSearchParams(searchParams)
     if (!value) {

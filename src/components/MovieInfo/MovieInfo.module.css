@@ -1,3 +1,29 @@
+.root {
+  display: flex;
+  gap: 16px;
+}
+
+.posterWrapper {
+  min-width: 444px;
+}
+
+.posterSkeleton {
+  min-width: 444px;
+  height: 664px !important;
+  border-radius: 8px !important;
+}
+
+.poster {
+  border-radius: 8px;
+}
+
+.info {
+  max-width: 680px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
 .movieInfo {
   display: flex;
   justify-content: space-between;
@@ -13,6 +39,28 @@
   display: flex;
   flex-direction: column;
 }
+
 .rating {
   white-space: nowrap;
+}
+
+.additionalInfo {
+  display: flex;
+  gap: 16px;
+}
+
+@media (max-width: 1120px) {
+  .root {
+    flex-direction: column;
+    align-items: center;
+  }
+  .posterWrapper {
+    min-width: auto;
+  }
+}
+
+@media (max-width: 576px) {
+  .additionalInfo {
+    flex-direction: column;
+  }
 }
