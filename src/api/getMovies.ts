@@ -1,18 +1,11 @@
-import axios from 'axios'
-import { Filters } from 'src/types'
+import axios, { AxiosResponse } from 'axios'
+import { Filters, Movie, ResponseData } from 'src/types'
 import { baseURL, headers } from './constants'
 
-interface Payload {
-  page: number
-  pageSize: number
-  filters: Filters
-}
+export const getMovies = async (filters: Filters) => {
+  const { page, pageSize, country, year, ageRating } = filters
 
-export const getMovies = async (payload: Payload) => {
-  const { page, pageSize, filters } = payload
-  const { country, year, ageRating } = filters
-
-  const response = await axios.get(`${baseURL}/v1.4/movie`, {
+  const response: AxiosResponse<ResponseData<Movie>> = await axios.get(`${baseURL}/v1.4/movie`, {
     params: {
       page,
       limit: pageSize,

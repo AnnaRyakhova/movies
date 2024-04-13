@@ -1,15 +1,11 @@
 import { FilterOption } from 'src/types'
-import { ageRatings } from '../components/Filters/constants'
 
-const defaultValue = { label: 'Для любого возраста', value: null }
+export const ageRatings = ['0', '6', '12', '16', '18']
+
+const defaultValue = { label: 'Для любого возраста', value: '' }
 
 export const getAgeRatingOptions = (): FilterOption[] => {
-  const filterOptions: FilterOption[] = [defaultValue]
+  const ratings = ageRatings.map((rating) => ({ value: rating, label: `${rating}+` }))
 
-  ageRatings.forEach((rating: string) => {
-    const option = { value: rating, label: `${rating}+` }
-    filterOptions.push(option)
-  })
-
-  return filterOptions
+  return [defaultValue, ...ratings]
 }

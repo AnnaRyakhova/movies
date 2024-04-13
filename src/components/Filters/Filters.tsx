@@ -1,5 +1,5 @@
-import { Input, Select, Typography } from 'antd'
-import { FC, useState } from 'react'
+import { Button, Input, Select, Typography } from 'antd'
+import { ChangeEvent, FC, KeyboardEventHandler } from 'react'
 import cn from 'classnames'
 
 import styles from './Filters.module.css'
@@ -16,55 +16,59 @@ const { Text } = Typography
 
 interface FiltersProps {
   searchQuery: string
-  setMovies: (movies: Movie[]) => void
-  setPage: (page: number) => void
   setSearchQuery: (query: string) => void
   mobile?: boolean
-  setPageSize: (pageSize: number) => void
-  pageSize: number
 }
 
-export const Filters: FC<FiltersProps> = ({
-  setPageSize,
-  pageSize,
-  setMovies,
-  searchQuery,
-  setSearchQuery,
-  setPage,
-  mobile = false,
-}) => {
+export const Filters: FC<FiltersProps> = ({ searchQuery, setSearchQuery, mobile = false }) => {
   const { filterParams, setFilterParams, resetFilterParams } = useFilterParams()
 
   const { countryOptions } = useCountryOptions()
   const yearsOptions = getYearsOptions()
   const ageRatingOptions = getAgeRatingOptions()
 
-  const handleFilter = (filer: Filter, value: string) => {
-    setSearchQuery('')
-    setFilterParams(filer, value)
-  }
-
-  const handleSearch = (e: any) => {
-    resetFilterParams()
-    setPage(1)
-    setSearchQuery(e.target.value)
-
-    const fetchMovies = async () => {
-      try {
-        const response = await getMoviesByName(searchQuery)
-        setMovies(response.docs)
-      } catch (error) {
-        console.log('error')
-      }
+  const handleFilter = (filter: Filter, value: string) => {
+    if (filter !== Filter.PageSize) {
+      setSearchQuery('')
     }
-    fetchMovies()
+    setFilterParams(filter, value)
   }
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    resetFilterParams()
+    setSearchQuery(e.target.value)
+  }
+
+  const copyTextToClipboard = () => {
+    try {
+      navigator.clipboard.writeText(window.location.href)
+      console.log('Текст успешно скопирован в буфер обмена!')
+    } catch (err) {
+      console.error('Ошибка:')
+    }
+  }
+
+  // const debounce = (func, delay) => {
+  //   let timeoutId
+
+  //   return (...args) => {
+  //     clearTimeout(timeoutId)
+  //     timeoutId = setTimeout(() => func.apply(this, args), delay)
+  //   }
+  // }
+
+  // const debouncedSearch = debounce(handleSearch, 100)
 
   return (
     <div className={cn(styles.sider, { [styles.mobile]: mobile })}>
       <div className={styles.searchWrapper}>
         <Text type="secondary">Найти фильм</Text>
-        <Search value={searchQuery} placeholder="" onChange={handleSearch} onPressEnter={handleSearch} />
+        <Search
+          value={searchQuery}
+          placeholder=""
+          onChange={handleSearch}
+          // onPressEnter={handleSearch}
+        />
       </div>
       <div className={styles.filtersWrapper}>
         <Text type="secondary">Фильтры</Text>
@@ -89,12 +93,14 @@ export const Filters: FC<FiltersProps> = ({
           />
           <Select
             placeholder="Размер страницы"
-            onChange={(value) => setPageSize(value)}
+            onChange={(value) => handleFilter(Filter.PageSize, String(value))}
             options={pageSizeOptions}
-            value={pageSize}
+            value={filterParams.pageSize}
           />
         </div>
       </div>
+
+      <Button onClick={() => copyTextToClipboard()}>Поделиться</Button>
     </div>
   )
 }

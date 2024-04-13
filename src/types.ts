@@ -2,7 +2,7 @@ interface Rating {
   kp: number
 }
 
-interface Poster {
+export interface Poster {
   previewUrl: string
   url: string
 }
@@ -14,7 +14,7 @@ export interface SimilarMovie {
     previewUrl: string
   }
   type: string
-  year: number
+  id: number
 }
 
 export interface Person {
@@ -43,6 +43,8 @@ export enum Filter {
   Country = 'country',
   Year = 'year',
   AgeRating = 'ageRating',
+  Page = 'page',
+  PageSize = 'pageSize',
 }
 
 export interface FilterOption {
@@ -54,6 +56,8 @@ export interface Filters {
   country: string
   year: string
   ageRating: string
+  page: string
+  pageSize: string
 }
 
 export interface Episode {
@@ -79,4 +83,5 @@ export interface Review {
 
 export interface ResponseData<T> {
   docs: T[]
+  total: number
 }

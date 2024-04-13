@@ -1,7 +1,7 @@
 import { Pagination, Spin } from 'antd'
 import { useEffect, useState } from 'react'
 
-import { Movie } from 'src/types'
+import { Filter, Movie } from 'src/types'
 import { getMovies, getMoviesByName } from 'src/api'
 import { MovieCard } from 'src/components/MovieCard/MovieCard'
 import { Filters } from 'src/components/Filters/Filters'
@@ -12,40 +12,40 @@ import styles from './MoviesListPage.module.css'
 
 export const MoviesListPage = () => {
   const [movies, setMovies] = useState<Movie[]>([])
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState<number>()
   const [searchQuery, setSearchQuery] = useState<string>('')
 
-  const { filterParams } = useFilterParams()
+  const { filterParams, setFilterParams } = useFilterParams()
 
   useEffect(() => {
-    const fetchData = async () => {
+    const handleGetMovies = async () => {
+      let movies
+
       try {
         setLoading(true)
-        if (!searchQuery) {
-          const response = await getMovies({ page, pageSize, filters: filterParams })
-          setMovies(response.docs)
-          setTotal(response?.total)
-        } else {
-          const movies = await getMoviesByName(searchQuery, page, pageSize)
+        if (searchQuery) {
+          const page = Number(filterParams.page)
+          const pageSize = Number(filterParams.pageSize)
+          movies = await getMoviesByName(searchQuery, page, pageSize)
           setMovies(movies.docs)
-          setTotal(movies.total)
+        } else {
+          movies = await getMovies(filterParams)
+          setMovies(movies.docs)
         }
       } catch {
-        console.log('error')
+        console.log('Не удалось загрузить фильмы')
       } finally {
+        setTotal(movies.total)
         setLoading(false)
       }
     }
 
-    fetchData()
-  }, [filterParams, page, pageSize, searchQuery])
+    handleGetMovies()
+  }, [filterParams, searchQuery])
 
-  const handlePagination = (page: number, pageSize: number) => {
-    setPage(page)
-    // setPageSize(pageSize)
+  const handlePagination = (page: number) => {
+    setFilterParams(Filter.Page, String(page))
   }
 
   const renderMovies = () => {
@@ -60,40 +60,23 @@ export const MoviesListPage = () => {
     return movies.map((movie) => <MovieCard movie={movie} key={movie.id} />)
   }
 
-  console.log(filterParams)
-
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        <Header
-          setPageSize={setPageSize}
-          searchQuery={searchQuery}
-          setMovies={setMovies}
-          setSearchQuery={setSearchQuery}
-          setPage={setPage}
-          pageSize={pageSize}
-        />
+        <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         <div className={styles.content}>
-          <Filters
-            searchQuery={searchQuery}
-            setMovies={setMovies}
-            setSearchQuery={setSearchQuery}
-            setPage={setPage}
-            setPageSize={setPageSize}
-            pageSize={pageSize}
-          />
-
+          <Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           <div className={styles.movies}>{renderMovies()}</div>
         </div>
 
         <Pagination
-          current={page}
+          current={Number(filterParams.page)}
           defaultCurrent={1}
           total={total}
           className={styles.pagination}
           onChange={handlePagination}
-          pageSize={pageSize}
+          pageSize={Number(filterParams.pageSize)}
           showSizeChanger={false}
         />
       </div>

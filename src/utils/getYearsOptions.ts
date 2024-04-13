@@ -1,6 +1,6 @@
 import { FilterOption } from 'src/types'
 
-const defaultValue = { label: 'Все годы', value: null }
+const defaultValue = { label: 'Все годы', value: '' }
 const yearFrom = 2027
 const yearTo = 2019
 const currentDecade = 2020

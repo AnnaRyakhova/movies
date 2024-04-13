@@ -47,7 +47,7 @@ export const Reviews: FC = () => {
         const reviews = await getReviews(id)
         setReviews(reviews)
       } catch (error) {
-        // console.log(error)
+        console.log('error')
       }
     }
     if (id) {

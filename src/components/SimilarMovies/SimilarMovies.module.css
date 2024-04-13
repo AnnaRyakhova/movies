@@ -10,3 +10,7 @@
   /* width: 100%; */
   overflow: hidden !important;
 }
+
+.link {
+  text-decoration: none;
+}
