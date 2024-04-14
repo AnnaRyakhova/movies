@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Typography, Button, Spin } from 'antd'
+import { toast } from 'sonner'
 
 import { getMovie } from 'src/api'
 import { Posters } from 'src/components/Posters/Posters'
@@ -29,7 +30,7 @@ export const MoviePage = () => {
           const movies = await getMovie(id)
           setMovie(movies)
         } catch {
-          console.log('no movie')
+          toast.error('Не удалось загрузить фильм')
         } finally {
           setLoading(false)
         }
@@ -41,12 +42,12 @@ export const MoviePage = () => {
   const handleReturn = () => navigate(-1)
 
   const renderInfo = () => {
-    if (!movie) {
-      return null
-    }
-
     if (loading) {
       return <Spin />
+    }
+
+    if (!movie) {
+      return null
     }
 
     return (

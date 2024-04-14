@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react'
 import { Pagination, Typography } from 'antd'
 import cn from 'classnames'
 import { useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
 import { Review } from 'src/types'
 import { getReviews } from 'src/api'
@@ -47,7 +48,7 @@ export const Reviews: FC = () => {
         const reviews = await getReviews(id)
         setReviews(reviews)
       } catch (error) {
-        console.log('error')
+        toast.error('Не удалось загрузить отзывы')
       }
     }
     if (id) {

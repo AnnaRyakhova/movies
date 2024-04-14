@@ -45,6 +45,7 @@ export enum Filter {
   AgeRating = 'ageRating',
   Page = 'page',
   PageSize = 'pageSize',
+  Search = 'search',
 }
 
 export interface FilterOption {
@@ -58,6 +59,7 @@ export interface Filters {
   ageRating: string
   page: string
   pageSize: string
+  search: string
 }
 
 export interface Episode {
@@ -66,6 +68,7 @@ export interface Episode {
   seasonNumber: number
   description?: string
 }
+
 export interface Season {
   number: number
   episodes: Episode[]

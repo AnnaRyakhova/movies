@@ -8,12 +8,7 @@ import styles from './Header.module.css'
 
 const { Text } = Typography
 
-interface HeaderProps {
-  searchQuery: string
-  setSearchQuery: (query: string) => void
-}
-
-export const Header: FC<HeaderProps> = ({ searchQuery, setSearchQuery }) => {
+export const Header: FC = () => {
   const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
@@ -31,7 +26,7 @@ export const Header: FC<HeaderProps> = ({ searchQuery, setSearchQuery }) => {
       </Text>
       <MenuFoldOutlined className={styles.mobileMenuIcon} onClick={showDrawer} />
       <Drawer title="Меню" onClose={onClose} open={open}>
-        <Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} mobile />
+        <Filters mobile />
       </Drawer>
     </div>
   )

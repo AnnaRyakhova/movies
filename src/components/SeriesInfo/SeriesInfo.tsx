@@ -1,6 +1,7 @@
 import { Typography, Pagination } from 'antd'
 import { FC, useEffect, useState } from 'react'
 import cn from 'classnames'
+import { toast } from 'sonner'
 
 import { Episode, Season } from 'src/types'
 import { getSeasons } from 'src/api'
@@ -26,7 +27,7 @@ export const SeriesInfo: FC = () => {
         }
         fetchSeasons()
       } catch {
-        console.log('error Seasons')
+        toast.error('Не удалось загрузить эпизоды')
       }
     }
   }, [id])

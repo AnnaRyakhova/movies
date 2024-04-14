@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { FilterOption } from 'src/types'
 import { getPossibleValues } from 'src/api'
+import { toast } from 'sonner'
 
 const startCountriesOptions: FilterOption[] = [
   { label: 'Все страны', value: '' },
@@ -18,7 +19,7 @@ export const useCountryOptions = () => {
         const countryOptions = await getPossibleValues('countries.name')
         setCountryOptions([...startCountriesOptions, ...countryOptions])
       } catch {
-        console.log('error')
+        toast.error('Не удалось загрузить список стран')
       }
     }
 

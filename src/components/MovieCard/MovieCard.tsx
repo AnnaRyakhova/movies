@@ -32,7 +32,7 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
     <>
       <Link to={`/movie/${id}`} className={styles.link}>
         <div className={styles.wrapper}>
-          <div className={styles.img} style={{ backgroundImage: `url(${poster.previewUrl})` }} />
+          <div className={styles.img} style={{ backgroundImage: `url(${poster?.previewUrl})` }} />
 
           <div className={styles.description}>
             <div className={styles.text}>

@@ -20,21 +20,55 @@ export const useFilterParams = () => {
     return { ...defaultSerchParams, ...prevParams }
   }, [searchParams])
 
-  const setFilterParams = (filter: Filter, value: string | null) => {
+  const setFilterParams = (filter: Filter, value: string) => {
     const prevParams = getSearchParams(searchParams)
-    if (!value) {
-      delete prevParams[filter]
-      const params = createSearchParams({ ...prevParams })
-      setSearchParams(params)
+
+    let valueObj = {}
+
+    // Set filter value or remove it from previus filters
+    if (value) {
+      valueObj = { [filter]: value }
     } else {
-      const params = createSearchParams({ ...prevParams, [filter]: value })
-      setSearchParams(params)
+      delete prevParams[filter]
     }
+
+    // Clean search query
+    const { search, ...restParams } = prevParams
+
+    const params = createSearchParams({ ...restParams, ...valueObj, page: '1' })
+    setSearchParams(params)
   }
 
-  const resetFilterParams = () => {
-    setSearchParams({ ...defaultSerchParams, pageSize: filterParams.pageSize })
+  const setSearchFilter = (searchValue: string) => {
+    let prevParams = {}
+    let searchFilter = {}
+
+    // Set search query and reset other filters
+    if (searchValue) {
+      searchFilter = { search: searchValue }
+      prevParams = { pageSize: filterParams.pageSize }
+    } else {
+      // Or remove search query
+      const oldParams = getSearchParams(searchParams)
+      const { search, ...restParams } = oldParams
+      prevParams = restParams
+    }
+
+    const params = createSearchParams({ ...prevParams, ...searchFilter, page: '1' })
+    setSearchParams(params)
   }
 
-  return { filterParams, setFilterParams, resetFilterParams }
+  const setPageSize = (pageSize: string) => {
+    const prevParams = getSearchParams(searchParams)
+    const params = createSearchParams({ ...prevParams, pageSize, page: '1' })
+    setSearchParams(params)
+  }
+
+  const setPage = (page: string) => {
+    const prevParams = getSearchParams(searchParams)
+    const params = createSearchParams({ ...prevParams, page })
+    setSearchParams(params)
+  }
+
+  return { filterParams, setFilterParams, setSearchFilter, setPageSize, setPage }
 }

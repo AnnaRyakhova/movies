@@ -1,13 +1,16 @@
 import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
+import { Image, Typography } from 'antd'
+import { Swiper as SwiperContainer, SwiperSlide } from 'swiper/react'
+import 'swiper/css'
 
 import { getPosters } from 'src/api'
 import { Poster } from 'src/types'
 
 import styles from './Posters.module.css'
-import { Image, Typography } from 'antd'
-import { Swiper as SwiperContainer, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
+
+const { Title } = Typography
 
 export const Posters = () => {
   const { id } = useParams()
@@ -20,14 +23,12 @@ export const Posters = () => {
           const posters = await getPosters(id)
           setPosters(posters)
         } catch {
-          console.log('error')
+          toast.error('Не удалось загрузить постеры')
         }
       }
       getAllPosters()
     }
   }, [id])
-
-  // console.log(posters)
 
   const renderPosters = () => {
     if (!posters.length) {
@@ -36,7 +37,7 @@ export const Posters = () => {
 
     return posters.map((poster) => {
       return (
-        <SwiperSlide className={styles.poster} key={poster.previewUrl}>
+        <SwiperSlide className={styles.poster} key={poster.url}>
           <Image src={poster.url} preview />
         </SwiperSlide>
       )
@@ -44,13 +45,11 @@ export const Posters = () => {
   }
 
   return (
-    <>
-      <Typography.Title level={3}>Постеры</Typography.Title>
-      <div className={styles.posters}>
-        <SwiperContainer spaceBetween={8} slidesPerView={3.5} autoHeight>
-          {renderPosters()}
-        </SwiperContainer>
-      </div>
-    </>
+    <div>
+      <Title level={3}>Постеры</Title>
+      <SwiperContainer spaceBetween={8} slidesPerView={3.5} autoHeight>
+        {renderPosters()}
+      </SwiperContainer>
+    </div>
   )
 }

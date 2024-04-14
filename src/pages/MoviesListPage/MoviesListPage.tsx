@@ -1,5 +1,6 @@
-import { Pagination, Spin } from 'antd'
+import { Pagination, Spin, Typography } from 'antd'
 import { useEffect, useState } from 'react'
+import { toast } from 'sonner'
 
 import { Filter, Movie } from 'src/types'
 import { getMovies, getMoviesByName } from 'src/api'
@@ -14,9 +15,8 @@ export const MoviesListPage = () => {
   const [movies, setMovies] = useState<Movie[]>([])
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState<number>()
-  const [searchQuery, setSearchQuery] = useState<string>('')
 
-  const { filterParams, setFilterParams } = useFilterParams()
+  const { filterParams, setPage } = useFilterParams()
 
   useEffect(() => {
     const handleGetMovies = async () => {
@@ -24,6 +24,7 @@ export const MoviesListPage = () => {
 
       try {
         setLoading(true)
+        const searchQuery = filterParams.search
         if (searchQuery) {
           const page = Number(filterParams.page)
           const pageSize = Number(filterParams.pageSize)
@@ -34,19 +35,17 @@ export const MoviesListPage = () => {
           setMovies(movies.docs)
         }
       } catch {
-        console.log('Не удалось загрузить фильмы')
+        toast.error('Не удалось загрузить фильмы')
       } finally {
-        setTotal(movies?.total || null)
+        setTotal(movies?.total)
         setLoading(false)
       }
     }
 
     handleGetMovies()
-  }, [filterParams, searchQuery])
+  }, [filterParams])
 
-  const handlePagination = (page: number) => {
-    setFilterParams(Filter.Page, String(page))
-  }
+  const handlePagination = (page: number) => setPage(String(page))
 
   const renderMovies = () => {
     if (loading) {
@@ -54,7 +53,7 @@ export const MoviesListPage = () => {
     }
 
     if (!movies.length) {
-      return null
+      return <Typography.Text>Фильмы не найдены</Typography.Text>
     }
 
     return movies.map((movie) => <MovieCard movie={movie} key={movie.id} />)
@@ -63,10 +62,10 @@ export const MoviesListPage = () => {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        <Header searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        <Header />
 
         <div className={styles.content}>
-          <Filters searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          <Filters />
           <div className={styles.movies}>{renderMovies()}</div>
         </div>
 

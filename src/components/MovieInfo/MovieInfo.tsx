@@ -16,7 +16,7 @@ export const MovieInfo: FC<Props> = ({ movie }) => {
 
   const renderPoster = () => {
     if (!image) {
-      return <Skeleton.Image className={styles.posterSkeleton} active />
+      return <Skeleton.Image className={styles.posterSkeleton} />
     }
 
     return <Image className={styles.poster} src={image} />
