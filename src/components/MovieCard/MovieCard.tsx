@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Typography } from 'antd'
+import { Skeleton, Typography } from 'antd'
 
 import styles from './MovieCard.module.css'
 import { Movie } from '../../types'
@@ -28,12 +28,19 @@ export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
 
   const movieRating = rating.kp.toFixed(1)
 
+  const renderPoster = () => {
+    if (!poster?.previewUrl) {
+      return <Skeleton.Image className={styles.posterSkeleton} />
+    }
+
+    return <div className={styles.poster} style={{ backgroundImage: `url(${poster?.previewUrl})` }} />
+  }
+
   return (
     <>
       <Link to={`/movie/${id}`} className={styles.link}>
         <div className={styles.wrapper}>
-          <div className={styles.img} style={{ backgroundImage: `url(${poster?.previewUrl})` }} />
-
+          {renderPoster()}
           <div className={styles.description}>
             <div className={styles.text}>
               <Title level={4} className={styles.title} style={{ marginBottom: '0' }}>

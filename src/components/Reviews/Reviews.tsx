@@ -35,7 +35,7 @@ const ReviewCard: FC<ReviewCardProps> = ({ review }) => {
 
 export const Reviews: FC = () => {
   const { id } = useParams()
-  const [reviews, setReviews] = useState(Array<Review>)
+  const [reviews, setReviews] = useState<Review[]>([])
   const [page, setPage] = useState(1)
 
   const handleReviews = (value: number) => {

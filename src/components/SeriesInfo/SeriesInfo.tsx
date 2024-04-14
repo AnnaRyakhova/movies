@@ -14,7 +14,7 @@ const { Title, Text } = Typography
 
 export const SeriesInfo: FC = () => {
   const [seriesPage, setSeriesPage] = useState(1)
-  const [seasons, setSeasons] = useState(Array<Season>)
+  const [seasons, setSeasons] = useState<Season[]>([])
   const { id } = useParams()
 
   useEffect(() => {

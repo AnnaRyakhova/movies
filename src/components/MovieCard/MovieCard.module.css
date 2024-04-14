@@ -18,7 +18,16 @@
   gap: 16px;
 }
 
-.img {
+.posterSkeleton {
+  width: 56px !important;
+  border-radius: 0px !important;
+}
+
+.posterSkeleton div svg {
+  width: 32px !important;
+}
+
+.poster {
   max-width: 56px;
   width: 100%;
   min-height: 80px;
