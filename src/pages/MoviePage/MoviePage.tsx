@@ -27,8 +27,8 @@ export const MoviePage = () => {
       const fetchMovie = async () => {
         try {
           setLoading(true)
-          const movies = await getMovie(id)
-          setMovie(movies)
+          const movie = await getMovie(id)
+          setMovie(movie)
         } catch {
           toast.error('Не удалось загрузить фильм')
         } finally {

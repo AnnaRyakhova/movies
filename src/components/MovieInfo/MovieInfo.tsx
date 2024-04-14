@@ -1,9 +1,12 @@
 import { FC } from 'react'
-import styles from './MovieInfo.module.css'
-import { Movie, Person } from 'src/types'
 import { Typography, Image, Skeleton } from 'antd'
+
+import { Movie, Person } from 'src/types'
+
 import { ActorsInfo } from '../ActorsInfo/ActorsInfo'
 import { SeriesInfo } from '../SeriesInfo/SeriesInfo'
+
+import styles from './MovieInfo.module.css'
 
 const { Text, Title } = Typography
 

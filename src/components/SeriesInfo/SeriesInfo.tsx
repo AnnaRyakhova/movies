@@ -22,7 +22,8 @@ export const SeriesInfo: FC = () => {
       try {
         const fetchSeasons = async () => {
           const seasons = await getSeasons(id)
-          const seasonsWithoutSpecials = seasons.filter(({ number }) => number)
+          const seasonsWithoutSpecials = seasons.filter(({ number }) => !!number)
+
           setSeasons([...seasonsWithoutSpecials].reverse())
         }
         fetchSeasons()
@@ -33,10 +34,10 @@ export const SeriesInfo: FC = () => {
   }, [id])
 
   const episodes = seasons.reduce((allEpisodes, season) => {
-    const seasonEpisodes = season.episodes.map((episod) => ({
-      number: episod.number,
+    const seasonEpisodes = season.episodes.map((episode) => ({
+      number: episode.number,
       seasonNumber: season.number,
-      name: episod.name,
+      name: episode.name,
     }))
     return [...allEpisodes, ...seasonEpisodes]
   }, [] as Episode[])
@@ -73,7 +74,7 @@ export const SeriesInfo: FC = () => {
         )}
       </div>
 
-      {episodeList.length > 0 && (
+      {!isEmpty && (
         <Pagination
           simple
           defaultCurrent={1}

@@ -7,6 +7,8 @@ const defaultSerchParams = {
   pageSize: '10',
 }
 
+const defaultPage = '1'
+
 const getSearchParams = (searchParams: URLSearchParams): Filters => {
   const params = {} as Filters
   return Array.from(searchParams).reduce((params, [key, value]) => ({ ...params, [key]: value }), params)
@@ -35,7 +37,7 @@ export const useFilterParams = () => {
     // Clean search query
     const { search, ...restParams } = prevParams
 
-    const params = createSearchParams({ ...restParams, ...valueObj, page: '1' })
+    const params = createSearchParams({ ...restParams, ...valueObj, page: defaultPage })
     setSearchParams(params)
   }
 
@@ -48,19 +50,19 @@ export const useFilterParams = () => {
       searchFilter = { search: searchValue }
       prevParams = { pageSize: filterParams.pageSize }
     } else {
-      // Or remove search query
+      // Remove search query and get other filters
       const oldParams = getSearchParams(searchParams)
       const { search, ...restParams } = oldParams
       prevParams = restParams
     }
 
-    const params = createSearchParams({ ...prevParams, ...searchFilter, page: '1' })
+    const params = createSearchParams({ ...prevParams, ...searchFilter, page: defaultPage })
     setSearchParams(params)
   }
 
   const setPageSize = (pageSize: string) => {
     const prevParams = getSearchParams(searchParams)
-    const params = createSearchParams({ ...prevParams, pageSize, page: '1' })
+    const params = createSearchParams({ ...prevParams, pageSize, page: defaultPage })
     setSearchParams(params)
   }
 

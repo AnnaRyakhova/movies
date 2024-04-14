@@ -2,7 +2,7 @@ import { Pagination, Spin, Typography } from 'antd'
 import { useEffect, useState } from 'react'
 import { toast } from 'sonner'
 
-import { Filter, Movie } from 'src/types'
+import { Movie } from 'src/types'
 import { getMovies, getMoviesByName } from 'src/api'
 import { MovieCard } from 'src/components/MovieCard/MovieCard'
 import { Filters } from 'src/components/Filters/Filters'

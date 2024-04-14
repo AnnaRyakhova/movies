@@ -1,15 +1,16 @@
 import { Button, Input, Select, Typography } from 'antd'
-import { ChangeEvent, FC, useEffect, useState, KeyboardEvent } from 'react'
+import { ChangeEvent, FC, KeyboardEvent } from 'react'
 import cn from 'classnames'
 import { toast } from 'sonner'
 
-import styles from './Filters.module.css'
 import { Filter } from 'src/types'
 import { getYearsOptions } from 'src/utils/getYearsOptions'
 import { useFilterParams } from 'src/utils/useFilterParams'
 import { getAgeRatingOptions } from 'src/utils/getAgeRatingOptions'
 import { useCountryOptions } from 'src/utils/useCountryOptions'
+
 import { pageSizeOptions } from './constants'
+import styles from './Filters.module.css'
 
 const { Search } = Input
 const { Text } = Typography

@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import { baseURL, headers } from './constants'
+
 import { FilterOption } from 'src/types'
+
+import { baseURL, headers } from './constants'
 
 interface PossibleValue {
   name: string

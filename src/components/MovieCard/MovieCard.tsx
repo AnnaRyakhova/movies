@@ -1,9 +1,10 @@
+import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { Skeleton, Typography } from 'antd'
 
+import { Movie } from 'src/types'
+
 import styles from './MovieCard.module.css'
-import { Movie } from '../../types'
-import { FC } from 'react'
 
 const { Title, Text } = Typography
 

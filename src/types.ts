@@ -50,7 +50,7 @@ export enum Filter {
 
 export interface FilterOption {
   label: string
-  value: string | null
+  value: string
 }
 
 export interface Filters {

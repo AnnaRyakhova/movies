@@ -1,5 +1,7 @@
 import axios, { AxiosResponse } from 'axios'
+
 import { ResponseData, Season } from 'src/types'
+
 import { baseURL, headers } from './constants'
 
 export const getSeasons = async (id: string): Promise<Season[]> => {

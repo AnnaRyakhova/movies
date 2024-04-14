@@ -1,6 +1,8 @@
 import axios, { AxiosResponse } from 'axios'
-import { baseURL, headers } from './constants'
+
 import { ResponseData, Review } from 'src/types'
+
+import { baseURL, headers } from './constants'
 
 export const getReviews = async (id: string): Promise<Review[]> => {
   const response: AxiosResponse<ResponseData<Review>> = await axios.get(`${baseURL}/v1.4/review`, {
