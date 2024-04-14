@@ -46,13 +46,17 @@
 }
 
 @media (max-width: 768px) {
-  .root {
+  .wrapper {
     padding: 16px 24px;
   }
 }
 
 @media (max-width: 576px) {
-  .root {
+  .wrapper {
     padding: 8px;
+  }
+
+  .pagination {
+    padding-top: 8px;
   }
 }
