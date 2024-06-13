@@ -5,10 +5,17 @@ import { FC, useState } from 'react'
 import { Filters } from '../Filters/Filters'
 
 import styles from './Header.module.css'
+import { Movie } from 'src/types'
 
 const { Text } = Typography
 
-export const Header: FC = () => {
+interface Props {
+  setLoading: (arg: boolean) => void
+  setTotal: (total: number | undefined) => void
+  setMovies: (movies: Movie[]) => void
+}
+
+export const Header: FC<Props> = ({ setTotal, setLoading, setMovies }) => {
   const [open, setOpen] = useState(false)
 
   const showDrawer = () => setOpen(true)
@@ -23,7 +30,7 @@ export const Header: FC = () => {
       </Text>
       <MenuFoldOutlined className={styles.mobileMenuIcon} onClick={showDrawer} />
       <Drawer title="Меню" onClose={onClose} open={open}>
-        <Filters mobile />
+        <Filters mobile setLoading={setLoading} setTotal={setTotal} setMovies={setMovies} />
       </Drawer>
     </div>
   )

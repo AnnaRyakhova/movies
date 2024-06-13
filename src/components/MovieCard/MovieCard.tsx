@@ -15,10 +15,10 @@ interface MovieCardProps {
 export const MovieCard: FC<MovieCardProps> = ({ movie }) => {
   const { name, alternativeName, year, movieLength, genres, countries, poster, rating, id } = movie || {}
 
-  const [genreObj] = genres
+  const [genreObj] = genres || []
   const genre = genreObj?.name ? `${genreObj.name}, ` : ''
 
-  const [country] = countries
+  const [country] = countries || []
   const countryName = country?.name ? `${country.name}` : ''
 
   const anotherName = alternativeName ? `${alternativeName}, ` : ''

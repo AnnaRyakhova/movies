@@ -54,12 +54,12 @@ export interface FilterOption {
 }
 
 export interface Filters {
-  country: string
-  year: string
-  ageRating: string
-  page: string
-  pageSize: string
-  search: string
+  country: string | null | undefined
+  year: string | null | undefined
+  ageRating: string | null | undefined
+  page: number | null | undefined
+  pageSize: number | null | undefined
+  // search: string | null | undefined
 }
 
 export interface Episode {

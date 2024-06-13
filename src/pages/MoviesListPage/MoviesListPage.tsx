@@ -1,13 +1,11 @@
 import { Pagination, Spin, Typography } from 'antd'
-import { useEffect, useState } from 'react'
-import { toast } from 'sonner'
+import { useState } from 'react'
 
 import { Movie } from 'src/types'
-import { getMovies, getMoviesByName } from 'src/api'
 import { MovieCard } from 'src/components/MovieCard/MovieCard'
 import { Filters } from 'src/components/Filters/Filters'
-import { useFilterParams } from 'src/utils/useFilterParams'
 import { Header } from 'src/components/Header/Header'
+import { useSearchParams } from 'src/utils/useSearchParams'
 
 import styles from './MoviesListPage.module.css'
 
@@ -16,36 +14,9 @@ export const MoviesListPage = () => {
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState<number>()
 
-  const { filterParams, setPage } = useFilterParams()
+  const { searchFilters, setSearchFilters, page } = useSearchParams()
 
-  useEffect(() => {
-    const handleGetMovies = async () => {
-      let movies
-
-      try {
-        setLoading(true)
-        const searchQuery = filterParams.search
-        if (searchQuery) {
-          const page = Number(filterParams.page)
-          const pageSize = Number(filterParams.pageSize)
-          movies = await getMoviesByName(searchQuery, page, pageSize)
-          setMovies(movies.docs)
-        } else {
-          movies = await getMovies(filterParams)
-          setMovies(movies.docs)
-        }
-      } catch {
-        toast.error('Не удалось загрузить фильмы')
-      } finally {
-        setTotal(movies?.total)
-        setLoading(false)
-      }
-    }
-
-    handleGetMovies()
-  }, [filterParams])
-
-  const handlePagination = (page: number) => setPage(String(page))
+  const handlePagination = (page: number) => setSearchFilters({ ...searchFilters, page: page })
 
   const renderMovies = () => {
     if (loading) {
@@ -62,20 +33,19 @@ export const MoviesListPage = () => {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        <Header />
+        <Header setLoading={setLoading} setTotal={setTotal} setMovies={setMovies} />
 
         <div className={styles.content}>
-          <Filters />
+          <Filters setLoading={setLoading} setTotal={setTotal} setMovies={setMovies} />
           <div className={styles.movies}>{renderMovies()}</div>
         </div>
 
         <Pagination
-          current={Number(filterParams.page)}
+          current={page}
           defaultCurrent={1}
           total={total}
           className={styles.pagination}
           onChange={handlePagination}
-          pageSize={Number(filterParams.pageSize)}
           showSizeChanger={false}
         />
       </div>
