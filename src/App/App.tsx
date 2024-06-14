@@ -4,7 +4,8 @@ import queryString from 'query-string'
 import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
 import { Toaster } from 'sonner'
 
-import { MoviesListPage } from 'src/pages/MoviesListPage/MoviesListPage'
+// import { MoviesListPage } from 'src/pages/MoviesListPage/MoviesListPage'
+import { MoviesListPage } from 'src/pages/MoviesListPage/MoviesListPageRedesign'
 import { MoviePage } from 'src/pages/MoviePage/MoviePage'
 
 import './App.css'

@@ -10,9 +10,10 @@ import { useCountryOptions } from 'src/utils/useCountryOptions'
 import { useSearchParams } from 'src/utils/useSearchParams'
 
 import { pageSizeOptions } from './constants'
-import styles from './Filters.module.css'
+import styles from './FiltersRedesign.module.css'
 import { getMovies, getMoviesByName } from 'src/api'
 import { useDebounce } from 'src/utils/useDebounce'
+import { Icon } from '../Icon/Icon'
 
 const { Search } = Input
 const { Text } = Typography
@@ -22,6 +23,10 @@ interface FiltersProps {
   setLoading: (arg: boolean) => void
   setTotal: (total: number | undefined) => void
   setMovies: (movies: Movie[]) => void
+}
+
+const Placeholder = ({ text }: { text: string }) => {
+  return <span className={styles.placeholder}>{text}</span>
 }
 
 export const Filters: FC<FiltersProps> = ({ mobile = false, setLoading, setTotal, setMovies }) => {
@@ -99,42 +104,60 @@ export const Filters: FC<FiltersProps> = ({ mobile = false, setLoading, setTotal
 
   return (
     <div className={cn(styles.sider, { [styles.mobile]: mobile })}>
-      <div className={styles.searchWrapper}>
-        <Text type="secondary">Найти фильм</Text>
-        <Search value={search} placeholder="" onChange={handleSearch} onPressEnter={handlePressEnter} />
-      </div>
-      <div className={styles.filtersWrapper}>
-        <Text type="secondary">Фильтры</Text>
-        <div className={styles.filters}>
-          <Select
-            placeholder="Все страны"
-            onChange={(value) => setFilter('country', value)}
-            options={countryOptions}
-            value={searchFilters.country}
-          />
-          <Select
-            placeholder="Все годы"
-            onChange={(value) => setFilter('year', value)}
-            options={yearsOptions}
-            value={searchFilters.year}
-          />
-          <Select
-            placeholder="Для любого возраста"
-            onChange={(value) => setFilter('ageRating', value)}
-            options={ageRatingOptions}
-            value={searchFilters.ageRating}
-          />
-          <Select
-            placeholder="Размер страницы"
-            defaultActiveFirstOption
-            onChange={(value) => setFilter('pageSize', value)}
-            options={pageSizeOptions}
-            value={searchFilters.pageSize}
+      <Text className={styles.title}>Поиск.Кино</Text>
+      <div className={styles.content}>
+        <div className={styles.searchWrapper}>
+          <Input
+            value={search}
+            placeholder="Поиск"
+            onChange={handleSearch}
+            onPressEnter={handlePressEnter}
+            className={styles.search}
+            suffix={<Icon type="search" />}
           />
         </div>
-      </div>
+        <div className={styles.filtersWrapper}>
+          <div className={styles.filters}>
+            <Select
+              placeholder={<Placeholder text="Все годы"></Placeholder>}
+              onChange={(value) => setFilter('year', value)}
+              options={yearsOptions}
+              value={searchFilters.year}
+              className={styles.select}
+            />
+            <Select
+              placeholder={<Placeholder text="Для любого возраста"></Placeholder>}
+              onChange={(value) => setFilter('ageRating', value)}
+              options={ageRatingOptions}
+              value={searchFilters.ageRating}
+              className={styles.select}
+            />
+            <Select
+              placeholder={<Placeholder text="12 фильмов за раз"></Placeholder>}
+              defaultActiveFirstOption
+              onChange={(value) => setFilter('pageSize', value)}
+              options={pageSizeOptions}
+              value={searchFilters.pageSize}
+              className={styles.select}
+            />
+            <Select
+              placeholder={<Placeholder text="Все страны"></Placeholder>}
+              onChange={(value) => setFilter('country', value)}
+              options={countryOptions}
+              value={searchFilters.country}
+              className={styles.select}
+            />
+          </div>
+        </div>
 
-      <Button onClick={() => copyTextToClipboard()}>Поделиться</Button>
+        <Button onClick={() => copyTextToClipboard()} className={styles.button}>
+          Поделиться
+        </Button>
+
+        <Button onClick={() => copyTextToClipboard()} className={styles.button}>
+          Случайный фильм
+        </Button>
+      </div>
     </div>
   )
 }
